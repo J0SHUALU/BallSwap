@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using TMPro;
 
 public class UIController : MonoBehaviour
@@ -6,6 +7,8 @@ public class UIController : MonoBehaviour
     public static UIController Instance { get; private set; }
 
     public TMP_Text movesText;
+    public TMP_Text levelText;
+    public TMP_Text winMovesText;
     public GameObject winPanel;
 
     private void Awake() => Instance = this;
@@ -17,14 +20,23 @@ public class UIController : MonoBehaviour
 
     private void Update()
     {
-        if (movesText && GameManager.Instance)
-            movesText.text = "Moves: " + GameManager.Instance.MoveCount;
+        if (GameManager.Instance == null) return;
+        if (movesText) movesText.text = "Moves: " + GameManager.Instance.MoveCount;
+        if (levelText) levelText.text = "Level " + GameManager.Instance.level;
     }
 
     public void OnUndo() => GameManager.Instance.Undo();
     public void OnHint() => GameManager.Instance.Hint();
     public void OnRestart() => GameManager.Instance.BuildLevel();
-    public void ShowWin() { if (winPanel) winPanel.SetActive(true); }
+    public void OnMenu() => SceneManager.LoadScene("MenuScene");
+
+    public void ShowWin()
+    {
+        if (winMovesText)
+            winMovesText.text = "completed in " + GameManager.Instance.MoveCount + " moves";
+        if (winPanel) winPanel.SetActive(true);
+    }
+
     public void OnNext()
     {
         if (winPanel) winPanel.SetActive(false);

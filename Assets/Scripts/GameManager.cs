@@ -7,7 +7,7 @@ public class GameManager : MonoBehaviour
 
     public Tube tubePrefab;
     public Ball ballPrefab;
-    public Material[] ballMaterials; 
+    public Material[] ballMaterials;
     public int level = 1;
     public int capacity = 4;
 
@@ -29,6 +29,10 @@ public class GameManager : MonoBehaviour
     {
         foreach (Tube t in tubes) if (t) Destroy(t.gameObject);
         tubes.Clear();
+
+        foreach (Ball stray in FindObjectsByType<Ball>(FindObjectsInactive.Exclude))
+            Destroy(stray.gameObject);
+
         history.Clear();
         MoveCount = 0;
         selected = null;
@@ -36,6 +40,8 @@ public class GameManager : MonoBehaviour
         var layout = builder.Build(level, capacity, out int tubeCount);
         float spacing = 2.2f;
         float startX = -(tubeCount - 1) * spacing / 2f;
+
+        FrameCamera(tubeCount, spacing);
 
         for (int i = 0; i < tubeCount; i++)
         {
@@ -50,6 +56,16 @@ public class GameManager : MonoBehaviour
             }
             tubes.Add(tube);
         }
+    }
+
+    private void FrameCamera(int tubeCount, float spacing)
+    {
+        float totalWidth = (tubeCount - 1) * spacing + 4f;
+        Camera cam = Camera.main;
+        float halfWidth = totalWidth / 2f;
+        float distance = halfWidth / Mathf.Tan(cam.fieldOfView * 0.5f * Mathf.Deg2Rad) / cam.aspect;
+        cam.transform.position = new Vector3(0f, 0f, -Mathf.Max(distance, 8f));
+        cam.transform.rotation = Quaternion.identity;
     }
 
     private void Update()

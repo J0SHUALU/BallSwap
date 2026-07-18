@@ -23,6 +23,7 @@ public class Tube : MonoBehaviour, ISelectable
 
     public void Push(Ball ball)
     {
+        ball.transform.SetParent(transform);
         balls.Add(ball);
         RestackVisuals();
         RefreshState();
@@ -30,6 +31,7 @@ public class Tube : MonoBehaviour, ISelectable
 
     public void PushWithArc(Ball ball, float travelHeight)
     {
+        ball.transform.SetParent(transform);
         balls.Add(ball);
         for (int i = 0; i < balls.Count - 1; i++)
         {
@@ -46,6 +48,7 @@ public class Tube : MonoBehaviour, ISelectable
         if (IsEmpty) return null;
         Ball top = balls[balls.Count - 1];
         balls.RemoveAt(balls.Count - 1);
+        top.transform.SetParent(null);
         RefreshState();
         return top;
     }
