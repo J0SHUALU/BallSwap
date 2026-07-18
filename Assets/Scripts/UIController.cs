@@ -21,7 +21,7 @@ public class UIController : MonoBehaviour
     private void Update()
     {
         if (GameManager.Instance == null) return;
-        if (movesText) movesText.text = "Moves: " + GameManager.Instance.MoveCount;
+        if (movesText) movesText.text = "Moves " + GameManager.Instance.MoveCount;
         if (levelText) levelText.text = "Level " + GameManager.Instance.level;
     }
 
