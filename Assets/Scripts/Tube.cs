@@ -86,6 +86,7 @@ public class Tube : MonoBehaviour, ISelectable
     {
         State = TubeState.Selected;
         transform.position += Vector3.up * 0.3f;
+        RestackVisuals();
     }
 
     public void OnDeselected()
