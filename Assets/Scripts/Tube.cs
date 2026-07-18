@@ -28,6 +28,19 @@ public class Tube : MonoBehaviour, ISelectable
         RefreshState();
     }
 
+    public void PushWithArc(Ball ball, float travelHeight)
+    {
+        balls.Add(ball);
+        for (int i = 0; i < balls.Count - 1; i++)
+        {
+            Vector3 pos = transform.position + Vector3.up * (-1.5f + i * 0.75f);
+            balls[i].MoveTo(pos);
+        }
+        Vector3 topPos = transform.position + Vector3.up * (-1.5f + (balls.Count - 1) * 0.75f);
+        ball.ArcTo(topPos, travelHeight);
+        RefreshState();
+    }
+
     public Ball Pop()
     {
         if (IsEmpty) return null;

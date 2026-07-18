@@ -20,7 +20,7 @@ public class PourCommand : IMove
     public void Execute()
     {
         moved = from.Pop();
-        to.Push(moved);
+        to.PushWithArc(moved, 4f);
     }
 
     public void Undo()
