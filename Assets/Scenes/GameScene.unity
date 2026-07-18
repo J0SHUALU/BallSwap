@@ -302,7 +302,7 @@ Transform:
   m_GameObject: {fileID: 963194225}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 1, z: -10}
+  m_LocalPosition: {x: 0, y: 0, z: -13}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -337,6 +337,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 15345f7bdfb46450c8b9a79378aa3ee7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GameManager
+  tubePrefab: {fileID: 8242755863557945563, guid: 1d087628a00dd4339a14c9166d735d32, type: 3}
+  ballPrefab: {fileID: 29913423620283076, guid: 71a88135cd5e74972bf1ac34a606359d, type: 3}
+  ballMaterials:
+  - {fileID: 2100000, guid: 57e3fd2f17dca4e00b010b522ef9babd, type: 2}
+  - {fileID: 2100000, guid: fce88a248b72a4c92923e626a9194d1b, type: 2}
+  - {fileID: 2100000, guid: 4fef8ec01bccc42768949a1aa25fb146, type: 2}
+  - {fileID: 2100000, guid: 656d282cd3a494c68bc01a8433901c32, type: 2}
+  - {fileID: 2100000, guid: 6b26177c89d9f4d9a8ba5076233e946e, type: 2}
+  - {fileID: 2100000, guid: 6aa5508796d924d1f9255ba48c579a26, type: 2}
+  level: 1
+  capacity: 4
 --- !u!4 &1597544595
 Transform:
   m_ObjectHideFlags: 0

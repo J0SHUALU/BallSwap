@@ -48,7 +48,7 @@ public class Tube : MonoBehaviour, ISelectable
     {
         for (int i = 0; i < balls.Count; i++)
         {
-            Vector3 pos = transform.position + Vector3.up * (0.5f + i * 0.85f);
+            Vector3 pos = transform.position + Vector3.up * (-1.5f + i * 0.75f);
             balls[i].MoveTo(pos);
         }
     }
