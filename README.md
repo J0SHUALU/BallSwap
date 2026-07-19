@@ -2,8 +2,6 @@
 
 A 3D ball-sorting puzzle made in Unity. Sort the balls so each tube holds one colour. Has undo, a hint that finds the next move, and levels that get harder.
 
-[Watch the walkthrough](media/Movie_001.mp4)
-
 ## How to play
 
 - Click a tube to pick it up (it lifts).
@@ -59,4 +57,4 @@ A 3D ball-sorting puzzle made in Unity. Sort the balls so each tube holds one co
 - Font: 1001fonts.com, under the licence on the font's page.
 - 3D models and materials: made from Unity's built-in sphere and cylinder shapes with my own colours, no downloaded 3D assets.
 
-**Author:** Joshua Moses 
+## **Author:** Joshua Moses 
