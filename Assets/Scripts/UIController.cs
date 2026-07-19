@@ -2,6 +2,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using TMPro;
 
+// Singleton pattern: one UI manager for the counters, win panel, and buttons.
 public class UIController : MonoBehaviour
 {
     public static UIController Instance { get; private set; }
@@ -25,6 +26,7 @@ public class UIController : MonoBehaviour
         if (levelText) levelText.text = "Level " + GameManager.Instance.level;
     }
 
+    // Button handlers pass the work to the GameManager.
     public void OnUndo() => GameManager.Instance.Undo();
     public void OnHint() => GameManager.Instance.Hint();
     public void OnRestart() => GameManager.Instance.BuildLevel();

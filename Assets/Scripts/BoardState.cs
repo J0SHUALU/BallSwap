@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Text;
 
+// Data class: a plain snapshot of the board, used by the solver.
 public class BoardState
 {
     public List<List<BallColor>> Tubes;
@@ -12,6 +13,7 @@ public class BoardState
         Capacity = capacity;
     }
 
+    // True when every tube is empty or full of one colour.
     public bool IsSolved()
     {
         foreach (var t in Tubes)
@@ -24,6 +26,7 @@ public class BoardState
         return true;
     }
 
+    // A text key for the board, so the search can spot boards it has seen.
     public string Key()
     {
         StringBuilder sb = new StringBuilder();

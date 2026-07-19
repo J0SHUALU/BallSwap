@@ -1,6 +1,7 @@
 using System.Collections;
 using UnityEngine;
 
+// Encapsulation: a ball owns its colour and handles its own movement.
 public class Ball : MonoBehaviour
 {
     public BallColor Color { get; private set; }
@@ -13,12 +14,14 @@ public class Ball : MonoBehaviour
         GetComponent<Renderer>().material = material;
     }
 
+    // Instant move (used when restacking).
     public void MoveTo(Vector3 target)
     {
         if (activeMove != null) StopCoroutine(activeMove);
         transform.position = target;
     }
 
+    // Animated move: lifts up, across, then down into the tube.
     public void ArcTo(Vector3 target, float travelHeight)
     {
         if (activeMove != null) StopCoroutine(activeMove);

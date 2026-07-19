@@ -1,8 +1,11 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+// State pattern: a tube is always in one of these states.
 public enum TubeState { Idle, Selected, Sorted }
 
+// Encapsulation: the ball list is private; the pour rules live inside this class.
+// Also implements ISelectable (abstraction) and holds a TubeState (state pattern).
 public class Tube : MonoBehaviour, ISelectable
 {
     public int Capacity = 4;
@@ -14,6 +17,7 @@ public class Tube : MonoBehaviour, ISelectable
     public bool IsFull => balls.Count >= Capacity;
     public Ball TopBall => IsEmpty ? null : balls[balls.Count - 1];
 
+    // The core game rule: when a ball is allowed to enter this tube.
     public bool CanReceive(Ball ball)
     {
         if (IsFull) return false;
@@ -53,6 +57,7 @@ public class Tube : MonoBehaviour, ISelectable
         return top;
     }
 
+    // Returns just the colours, used by the solver.
     public List<BallColor> Snapshot()
     {
         List<BallColor> colors = new List<BallColor>();
@@ -69,6 +74,7 @@ public class Tube : MonoBehaviour, ISelectable
         }
     }
 
+    // State pattern: recalculate the tube's state when its balls change.
     private void RefreshState()
     {
         if (IsSortedComplete()) State = TubeState.Sorted;

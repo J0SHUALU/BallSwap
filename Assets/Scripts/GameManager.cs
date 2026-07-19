@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+// Singleton pattern: one central manager that runs the game.
 public class GameManager : MonoBehaviour
 {
     public static GameManager Instance { get; private set; }
@@ -17,6 +18,7 @@ public class GameManager : MonoBehaviour
     private Tube selected;
     public int MoveCount { get; private set; }
 
+    // Singleton: make sure only one instance exists.
     private void Awake()
     {
         if (Instance != null && Instance != this) { Destroy(gameObject); return; }
@@ -37,12 +39,14 @@ public class GameManager : MonoBehaviour
         MoveCount = 0;
         selected = null;
 
+        // Ask the builder for a scrambled, solvable board.
         var layout = builder.Build(level, capacity, out int tubeCount);
         float spacing = 2.2f;
         float startX = -(tubeCount - 1) * spacing / 2f;
 
         FrameCamera(tubeCount, spacing);
 
+        // Spawn the tubes and fill them with balls.
         for (int i = 0; i < tubeCount; i++)
         {
             Tube tube = Instantiate(tubePrefab);
@@ -58,6 +62,7 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    // Fit the camera to however many tubes there are this level.
     private void FrameCamera(int tubeCount, float spacing)
     {
         float totalWidth = (tubeCount - 1) * spacing + 4f;
@@ -73,6 +78,7 @@ public class GameManager : MonoBehaviour
         if (Input.GetMouseButtonDown(0)) HandleClick();
     }
 
+    // Click a tube to select it, click another to pour.
     private void HandleClick()
     {
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
@@ -93,6 +99,7 @@ public class GameManager : MonoBehaviour
         }
         else
         {
+            // Command pattern: wrap the pour as an object and record it for undo.
             PourCommand move = new PourCommand(selected, clicked);
             if (move.IsValid())
             {
@@ -106,11 +113,13 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    // Undo: let the history reverse the last move.
     public void Undo()
     {
         if (history.UndoLast()) MoveCount++;
     }
 
+    // Hint: snapshot the board and ask the solver for the next move.
     public void Hint()
     {
         var snapshot = new List<List<BallColor>>();
@@ -131,6 +140,7 @@ public class GameManager : MonoBehaviour
             if (t.State == TubeState.Selected) t.OnDeselected();
     }
 
+    // Win when every tube is sorted.
     private void CheckWin()
     {
         foreach (Tube t in tubes)

@@ -1,5 +1,7 @@
 using System.Collections.Generic;
 
+// Command pattern: keeps a stack of moves so undo can reverse the last one.
+// Polymorphism: works with the IMove interface, not any specific move type.
 public class MoveHistory
 {
     private readonly Stack<IMove> history = new Stack<IMove>();
